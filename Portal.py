@@ -72,20 +72,20 @@ feedback_list = []
 contacts = {}
 
 # User sets their own password
-roll_no = int(input("Enter your roll number: "))
+roll_no = int(input("Welcome to the Citizen Information Portal! Please enter your roll number (1-62): "))
 if roll_no in default_passwords:
     print(f"Your default password is: {default_passwords[roll_no]}")
-    new_password = input("Please set your new password: ")
+    new_password = input("Please set your new password (minimum 8 characters): ")
     set_user_password(users, roll_no, new_password)
-    print("Password changed successfully.")
+    print("Password changed successfully! You can now log in.")
 else:
-    print("Invalid roll number.")
+    print("Oops! That roll number is not valid. Please try again.")
 
 # User login
-roll_no = int(input("Enter your roll number: "))
+roll_no = int(input("Please enter your roll number to log in: "))
 password = input("Enter your password: ")
 if validate_login(users, roll_no, password):
-    print("Login successful!")
+    print("Login successful! Welcome to the portal.")
 
     # Menu-driven interface for Citizen Information Portal
     while True:
@@ -105,20 +105,23 @@ if validate_login(users, roll_no, password):
             print("4. View Land Regulation")
             print("5. View Government Scheme")
             print("6. View Administrative Procedure")
-            info_choice = input("Enter your choice: ")
+            info_choice = input("What would you like to do? ")
 
             if info_choice == '1':
                 regulation_name = input("Enter regulation name: ")
                 details = input("Enter regulation details: ")
                 add_land_regulation(land_regulations, regulation_name, details)
+                print(f"Regulation '{regulation_name}' added successfully!")
             elif info_choice == '2':
                 scheme_name = input("Enter scheme name: ")
                 details = input("Enter scheme details: ")
                 add_government_scheme(government_schemes, scheme_name, details)
+                print(f"Scheme '{scheme_name}' added successfully!")
             elif info_choice == '3':
                 procedure_name = input("Enter procedure name: ")
                 details = input("Enter procedure details: ")
                 add_admin_procedure(admin_procedures, procedure_name, details)
+                print(f"Procedure '{procedure_name}' added successfully!")
             elif info_choice == '4':
                 regulation_name = input("Enter regulation name to view: ")
                 print(get_land_regulation(land_regulations, regulation_name))
@@ -129,13 +132,13 @@ if validate_login(users, roll_no, password):
                 procedure_name = input("Enter procedure name to view: ")
                 print(get_admin_procedure(admin_procedures, procedure_name))
             else:
-                print("Invalid choice.")
+                print("Invalid choice. Please try again.")
 
         elif choice == '2':
             print("\nDocument Repository Menu:")
             print("1. Add Document")
             print("2. View Documents")
-            document_choice = input("Enter your choice: ")
+            document_choice = input("What would you like to do? ")
 
             if document_choice == '1':
                 document_name = input("Enter document name: ")
@@ -143,34 +146,34 @@ if validate_login(users, roll_no, password):
                 upload_document(documents, document_name, content)
                 print(f"Document '{document_name}' added successfully.")
             elif document_choice == '2':
-                print("Documents:")
+                print("Documents in the repository:")
                 for doc_name, doc_content in documents.items():
                     print(f"- {doc_name}: {doc_content}")
             else:
-                print("Invalid choice.")
+                print("Invalid choice. Please try again.")
 
         elif choice == '3':
             print("\nFeedback Module Menu:")
             print("1. Add Feedback")
             print("2. View Feedback")
-            feedback_choice = input("Enter your choice: ")
+            feedback_choice = input("What would you like to do? ")
 
             if feedback_choice == '1':
-                feedback = input("Enter your feedback: ")
+                feedback = input("Please enter your feedback: ")
                 add_feedback(feedback_list, feedback)
-                print("Feedback added successfully.")
+                print("Thank you! Your feedback has been added.")
             elif feedback_choice == '2':
-                print("Feedback:")
+                print("Feedback received:")
                 for fb in view_feedback(feedback_list):
                     print(f"- {fb}")
             else:
-                print("Invalid choice.")
+                print("Invalid choice. Please try again.")
 
         elif choice == '4':
             print("\nResource Directory Menu:")
             print("1. Add Contact")
             print("2. View Contacts")
-            resource_choice = input("Enter your choice: ")
+            resource_choice = input("What would you like to do? ")
 
             if resource_choice == '1':
                 department = input("Enter department name: ")
@@ -179,14 +182,15 @@ if validate_login(users, roll_no, password):
                 add_contact(contacts, department, official_name, contact_info)
                 print(f"Contact for {department} added successfully.")
             elif resource_choice == '2':
+                print("Contact Information:")
                 view_contacts(contacts)
             else:
-                print("Invalid choice.")
+                print("Invalid choice. Please try again.")
 
         elif choice == '5':
-            print("Exiting the Information Portal. Goodbye!")
+            print("Thank you for using the Citizen Information Portal! Goodbye!")
             break
         else:
             print("Invalid choice. Please choose again.")
 else:
-    print("Invalid roll number or password.")
+    print("Oops! Invalid roll number or password. Please try again.")
